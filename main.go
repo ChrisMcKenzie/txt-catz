@@ -39,7 +39,7 @@ func hello_handler(w http.ResponseWriter, r *http.Request) {
 	if response == "go get catz" || response == "catz" {
 		sendMms(to, twiliogo.MediaUrl("http://thecatapi.com/api/images/get?format=src&type=gif"))
 	} else if response == "help" {
-		sendSms(to, twiliogo.Body("Commands:\nhelp\ngo get catz"))
+		sendSms(to, twiliogo.Body("Commands:\n\t- help\n\t - go get catz"))
 	} else {
 		message := "http://thecatapi.com/?id=5jb&type=jpg"
 		sendSms(to, twiliogo.Body(message))
