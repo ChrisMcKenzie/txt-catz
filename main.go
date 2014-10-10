@@ -1,24 +1,33 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"os"
 
 	"github.com/carlosdp/twiliogo"
 )
 
-// +1 442-242-6855
+const (
+	accountSid = "ACe3f0bf659491650bbff689790fd574e1"
+	authToken  = "c57d2b5b368d0dd291c3c5c908ccc785"
+	from       = "+16193761185"
+)
+
+func sendSms(to string, message twiliogo.Body) {
+	client := twiliogo.NewClient(accountSid, authToken)
+	twiliogo.NewMessage(client, from, to, message)
+}
+
+func sendMms(to string, message twiliogo.MediaUrl) {
+	client := twiliogo.NewClient(accountSid, authToken)
+	twiliogo.NewMessage(client, from, to, message)
+}
 
 func main() {
-	accountSid := "ACe3f0bf659491650bbff689790fd574e1"
-	authToken := "c57d2b5b368d0dd291c3c5c908ccc785"
-	client := twiliogo.NewClient(accountSid, authToken)
 
-	from := "+16193761185"
-	to := "+16195591274"
+	to := "+17605968806"
 	message := "send me a command... (hint: go get catz)"
-	twiliogo.NewMessage(client, from, to, twiliogo.Body(message))
+	sendSms(to, twiliogo.Body(message))
 
 	http.HandleFunc("/hello", hello_handler)
 
@@ -29,23 +38,13 @@ func main() {
 }
 
 func hello_handler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("%#v", r)
-
 	response := r.FormValue("Body")
-	accountSid := "ACe3f0bf659491650bbff689790fd574e1"
-	authToken := "c57d2b5b368d0dd291c3c5c908ccc785"
-	client := twiliogo.NewClient(accountSid, authToken)
+	to := r.FormValue("From")
 
-	if response == "catz" {
-		// http://thecatapi.com/?id=5jb&type=jpg
-		from := "+16193761185"
-		to := r.FormValue("From")
-		twiliogo.NewMessage(client, from, to, twiliogo.MediaUrl("http://thecatapi.com/api/images/get?format=src&type=gif"))
+	if response == "go get catz" || response == "catz" {
+		sendMms(to, twiliogo.MediaUrl("http://thecatapi.com/api/images/get?format=src&type=gif"))
 	} else {
-		from := "+16193761185"
-		to := r.FormValue("From")
 		message := "http://thecatapi.com/?id=5jb&type=jpg"
-		twiliogo.NewMessage(client, from, to, twiliogo.Body(message))
+		sendSms(to, twiliogo.Body(message))
 	}
-
 }
