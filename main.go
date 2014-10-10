@@ -32,6 +32,9 @@ func hello_handler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("%#v", r)
 
 	response := r.FormValue("body")
+	accountSid := "ACe3f0bf659491650bbff689790fd574e1"
+	authToken := "c57d2b5b368d0dd291c3c5c908ccc785"
+	twilio := gotwilio.NewTwilioClient(accountSid, authToken)
 
 	from := "+16193761185"
 	to := r.FormValue("From")
