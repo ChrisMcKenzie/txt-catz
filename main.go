@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/sfreiberg/gotwilio"
 )
@@ -23,5 +24,5 @@ func main() {
 		log.Printf("%#v", r)
 	})
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
