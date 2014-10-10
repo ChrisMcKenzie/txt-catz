@@ -1,0 +1,10 @@
+{
+	"ImportPath": "github.com/ChrisMcKenzie/twilio-app",
+	"GoVersion": "go1.3.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/sfreiberg/gotwilio",
+			"Rev": "b6c1c298151f4cd9370d32ab742b86d68a758c14"
+		}
+	]
+}
