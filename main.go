@@ -40,7 +40,6 @@ func hello_handler(w http.ResponseWriter, r *http.Request) {
 		// http://thecatapi.com/?id=5jb&type=jpg
 		from := "+16193761185"
 		to := r.FormValue("From")
-		message := "http://thecatapi.com/?id=5jb&type=jpg"
 		twiliogo.NewMessage(client, from, to, twiliogo.MediaUrl("http://thecatapi.com/api/images/get?format=src&type=gif"))
 	} else {
 		from := "+16193761185"
