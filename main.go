@@ -20,12 +20,21 @@ func main() {
 	message := "send me a command... (hint: go get catz)"
 	twilio.SendSMS(from, to, message, "", "")
 
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%#v", r)
-	})
+	http.HandleFunc("/hello", hello_handler)
 
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		panic(err)
 	}
+}
+
+func hello_handler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("%#v", r)
+
+	response := r.FormValue("body")
+
+	from := "+16193761185"
+	to := r.FormValue("From")
+	message := "You sent: " + response
+	twilio.SendSMS(from, to, message, "", "")
 }
