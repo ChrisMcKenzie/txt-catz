@@ -16,7 +16,7 @@ func main() {
 	client := twiliogo.NewClient(accountSid, authToken)
 
 	from := "+16193761185"
-	to := "+17605968806"
+	to := "+16195591274"
 	message := "send me a command... (hint: go get catz)"
 	twiliogo.NewMessage(client, from, to, twiliogo.Body(message))
 
@@ -42,6 +42,11 @@ func hello_handler(w http.ResponseWriter, r *http.Request) {
 		to := r.FormValue("From")
 		message := "http://thecatapi.com/?id=5jb&type=jpg"
 		twiliogo.NewMessage(client, from, to, twiliogo.MediaUrl(message))
+	} else {
+		from := "+16193761185"
+		to := r.FormValue("From")
+		message := "http://thecatapi.com/?id=5jb&type=jpg"
+		twiliogo.NewMessage(client, from, to, twiliogo.Body(message))
 	}
 
 }
