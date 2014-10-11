@@ -36,7 +36,7 @@ func hello_handler(w http.ResponseWriter, r *http.Request) {
 	response := r.FormValue("Body")
 	to := r.FormValue("From")
 
-	if response == "go get catz" || response == "catz" {
+	if response == "get catz" || response == "catz" {
 		sendMms(to, twiliogo.MediaUrl("http://thecatapi.com/api/images/get?format=src&type=gif"))
 	} else if response == "help" {
 		sendSms(to, twiliogo.Body("Commands:\n\t- help\n\t - go get catz"))
